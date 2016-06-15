@@ -29,13 +29,13 @@ router.post('/tweets', function(req, res) {
 // We can use router.VERB with any VERB <-- Is it totally interchangeable with app.VERB?
 router.get('/', function (req, res) {
   var tweets = tweetBank.list();
-  res.render('index',{title: 'Twitter.js', tweets: tweets, showForm: true, value: 'Name' });
+  res.render('index',{title: 'Twitter.js', tweets: tweets, showForm: true, value: "Name" });
 });
 
 /*** BOTH METHODS WORK, BOTH TESTED ***/
 // Rudimentary method: Write a specific handler for one <link> GET request
 router.get('/stylesheets/style.css', function(req,res){
-res.sendFile(path.join(__dirname, '../public/stylesheets/style.css'));
+	res.sendFile(path.join(__dirname, '../public/stylesheets/style.css'));
 });
 
 // Abstract method, auto calls sendFile in response to GET or

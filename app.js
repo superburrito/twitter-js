@@ -4,7 +4,8 @@ var app = new express();
 var chalk = require('chalk');
 var swig = require('swig');
 var routes = require('./routes/index.js');
-
+var morgan = require('morgan');
+var logger = morgan('dev');
 /*********************************/
 // Sets the path to find view files
 app.set('views',__dirname + '/views');
@@ -16,11 +17,10 @@ app.engine('html', swig.renderFile);
 swig.setDefaults({ cache: false });
 /*********************************/
 
+
 // Logging Middleware Function, logs METHOD PATH
-app.use(function(req,res,next){
-  console.log(chalk.yellow(req.method) + ' ' + chalk.blue(req.path) + ' ');
-  next();
-});
+// Instead of using console.log we use the morgan mod
+app.use(logger);
 
 // Encapsulates routes --> Why use '/', since it doesn't matter which url is being accessed?
 app.use('/', routes);
