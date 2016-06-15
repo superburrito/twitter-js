@@ -1,4 +1,7 @@
+<!-- This is our template -->
+
 {% extends "layout.html" %}
+
 
 {% block content %}
   
@@ -8,26 +11,35 @@
   <div class="row">
     <div class="col-md-3">
       <img src="https://pbs.twimg.com/profile_images/2450268678/olxp11gnt09no2y2wpsh_normal.jpeg"><br>
-      <b>John</b><br>
+      <b>Fullstacker</b><br>
       100 followers
     </div>
     <div class="col-md-9">
-      <h2>All Tweets:</h2><br>
+
+      {% if showForm %}
+      <form action="/tweets" method="POST">
+        <label for="name_field">Name:</label>
+        <input name="name" type="text" id="name_field" value={{value}}/>
+
+        <label for="text_field">Text:</label>
+        <input name="text" type="text" id="text_field" style="width: 350px;" />
+
+        <input type="submit" value="Submit" />
+      </form>
+      {% endif %}
+
+      <h2>All Tweets:</h2>
       <!-- display tweets here -->
       <table>
       {% for tweet in tweets %}
           <tr>
             <td><img class="pics" src={{tweet.pictureUrl}}></td>
-            <td><div class="names">{{tweet.name}}</div>
+            <td><a href="http://localhost:3000/users/{{tweet.name}}">{{tweet.name}}</a>
                 <div class="text">{{tweet.text}}</div></td>
           </tr>
       {% endfor %}
       </table>
-    </div>
   </div>
+
     
 {% endblock %}
-
-/*
-
-*/

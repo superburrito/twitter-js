@@ -1,42 +1,30 @@
+// Require modules
 var express = require('express');
 var app = new express();
 var chalk = require('chalk');
 var swig = require('swig');
-var routes = require('./routes')
+var routes = require('./routes/index.js');
+// Switch off Swig's auto-caching
 swig.setDefaults({ cache: false });
 
-/***** Figure this out!! *********/
-// Registers swig as the engine to process all html file
+
+/*********************************/
+// Configures swig to be the engine that processes all file with the 'html' extension
 app.engine('html', swig.renderFile);
-// Same as first?
+// What is this? Redundancy?
 app.set('view engine','html');
-// Sets the path where we search for the first argument of res.render?
+// Sets the path where all rendering is done
 app.set('views',__dirname + '/views');
 /*********************************/
-//app.use(function(req,res,next){
-//  res.render('index', whatever);
-//  console.log(chalk.yellow(req.method) + ' ' + chalk.blue(req.path) + ' ');
-//});
 
-app.use('/', routes)
-
-app.get('/stylesheets/style.css', function(req, res, next){
-  res.sendFile('/public/stylesheets/style.css')
+// Logging Middleware Function, logs METHOD PATH
+app.use(function(req,res,next){
+  console.log(chalk.yellow(req.method) + ' ' + chalk.blue(req.path) + ' ');
+  next();
 });
 
-app.use(express.static('public'));
+// Encapsulates routes --> Why use '/', since it doesn't matter which url is being accessed?
+app.use('/', routes);
 
+// Listen on port 3000
 app.listen(3000);
-
-app.use('/special/', function(req,res,next){
-  res.send("You've reached the special area...");
-  next(); 
-});
-
-app.get('/', function(req,res,next){
-  res.send('Welcome!');
-});
-
-app.get('/news', function(req,res,next){
-  res.send('This is the news section!');
-});

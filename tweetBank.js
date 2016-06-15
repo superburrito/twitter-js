@@ -1,13 +1,15 @@
 var _ = require('lodash'); 
 
-var data = [{pictureUrl: 'http://i.telegraph.co.uk/multimedia/archive/03597/POTD_chick_3597497k.jpg',
-             name: 'Yao', text: "What up sucka"}]; 
+// Empty array to store tweets and their associated info
+var data = []; 
 
+var idCounter = 0;
 function add (pictureUrl, name, text) {
-  data.push({ pictureUrl: pictureUrl, name: name, text: text });
+  data.push({ pictureUrl: pictureUrl, name: name, text: text, id: idCounter++});
 }
 
-function list () {
+
+function list () {  
   return _.cloneDeep(data);
 }
 
@@ -43,20 +45,16 @@ var getPictureUrl = function() {
 
 var getFakeTweet = function() {
   var awesome_adj = ['awesome', 'breathtaking', 'amazing', 'funny', 'sweet', 'cool', 'wonderful', 'mindblowing'];
-  return "Fullstack Academy is " + randArrayEl(awesome_adj) + "! The instructors are just so " + randArrayEl(awesome_adj) + ". #fullstacklove #codedreams";
+  return "Fullstack Academy is " + randArrayEl(awesome_adj) + 
+         "! The instructors are just so " + randArrayEl(awesome_adj) + ". #fullstacklove #codedreams";
 };
 
-
-module.exports = { add: add, list: list, find: find };
-
-var test = find({name:'Yao'});
-console.log(test);
+// Push chunks of random tweets onto data
 for (var i = 0; i < 10; i++) {
-  module.exports.add( getPictureUrl(), getFakeName(), getFakeTweet() );
+ add( getPictureUrl(), getFakeName(), getFakeTweet() );
 }
 
-
-console.log(data);
-
+// Export functions to other files
+module.exports = { add: add, list: list, find: find, getPictureUrl: getPictureUrl};
 
 
