@@ -4,17 +4,16 @@ var app = new express();
 var chalk = require('chalk');
 var swig = require('swig');
 var routes = require('./routes/index.js');
-// Switch off Swig's auto-caching
-swig.setDefaults({ cache: false });
-
 
 /*********************************/
-// Configures swig to be the engine that processes all file with the 'html' extension
-app.engine('html', swig.renderFile);
-// What is this? Redundancy?
-app.set('view engine','html');
-// Sets the path where all rendering is done
+// Sets the path to find view files
 app.set('views',__dirname + '/views');
+// Defines the type of file that we are looking for
+app.set('view engine','html');
+// Pass information from all html files to swig
+app.engine('html', swig.renderFile);
+// Switch off Swig's auto-caching
+swig.setDefaults({ cache: false });
 /*********************************/
 
 // Logging Middleware Function, logs METHOD PATH
