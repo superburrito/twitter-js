@@ -29,7 +29,7 @@ router.post('/tweets', function(req, res) {
 // We can use router.VERB with any VERB <-- Is it totally interchangeable with app.VERB?
 router.get('/', function (req, res) {
   var tweets = tweetBank.list();
-  res.render('index',{title: 'Twitter.js', tweets: tweets, showForm: true, value: 'Your Name'});
+  res.render('index',{title: 'Twitter.js', tweets: tweets, showForm: true, value: 'Name' });
 });
 
 /*** BOTH METHODS WORK, BOTH TESTED ***/
